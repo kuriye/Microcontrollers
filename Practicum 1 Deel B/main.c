@@ -88,7 +88,7 @@ void b6(){
 	int mode = 0;
 	
 	while(1) {
-		PORTD ^= PORT(7);
+		PORTD ^= BIT(7);
 		if(PINC & 0b0000001) {
 			mode ^= 1;
 		}
