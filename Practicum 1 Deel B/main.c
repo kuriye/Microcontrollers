@@ -82,11 +82,29 @@ void b5() {
 	}
 }
 
+void b6(){
+	PORTC = 0x10;
+	DDRD = 0xFF;
+	int mode = 0;
+	
+	while(1) {
+		PORTD ^= PORT(7);
+		if(PINC & 0b0000001) {
+			mode ^= 1;
+		}
+		if(mode == 0) {
+			wait(1000);
+		} else {
+			wait(250);
+		}
+	}
+}
+
 
 
 int main( void )
 {
-	b5();
+	b6();
 
 	return 1;
 }
