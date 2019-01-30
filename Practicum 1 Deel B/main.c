@@ -30,9 +30,23 @@ void b3() {
 	}
 }
 
+void b4() {
+	DDRD = 0xFF;
+	int x = 0;
+	
+	while(1) {
+		PORTD = PORT(x);
+		_delay_ms(50);
+		x++;
+		if(x > 7){
+			x = 0;
+		}
+	}
+}
+
 int main( void )
 {
-	b3();
+	b4();
 
 	return 1;
 }
