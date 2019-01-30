@@ -23,8 +23,9 @@ void b3() {
 	
 	while(1) {
 		if(PINC & 0b0000001) {
-			PORTD = PORT(7);
-			} else {
+			PORTD ^= PORT(7);
+			_delay_ms(250);
+		} else {
 			PORTD = 0x00;
 		}
 	}
