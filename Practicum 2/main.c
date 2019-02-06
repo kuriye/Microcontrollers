@@ -4,6 +4,7 @@
  * Created: 2/6/2019 10:24:18 AM
  * Author : paulh
  */ 
+#define F_CPU 8000000L
 
 #include <avr/io.h>
 #include <util/delay.h>
