@@ -4,6 +4,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include "pattern.h"
+#include "smartcontrol.h"
 
 void b2() {
 	DDRD = 0xFF;
@@ -66,7 +67,10 @@ void b5() {
 	DDRA = 0xFF;	
 	DDRB = 0xFF;	
 	DDRC = 0xFF;	
-	DDRD = 0xFF;					
+	DDRD = 0xFF;	
+	DDRE = 0xFF;
+	DDRF = 0xFF;
+	DDRG = 0xFF;		
 	
 	while (1)
 	{
@@ -76,6 +80,9 @@ void b5() {
 			PORTB = pattern[i].data;
 			PORTC = pattern[i].data;
 			PORTD = pattern[i].data;
+			//PORTE = pattern[i].data;
+			PORTF = pattern[i].data;
+			PORTG = pattern[i].data;
 		
 			wait(pattern[i].delay);
 		}
@@ -100,11 +107,27 @@ void b6(){
 	}
 }
 
+void b7() {
+	while(1)
+	{
+		for(int i = 1; i <= 6; i++)
+		{
+			setCharliePlexingLed(i);
+			wait(100);
+		}
+
+		for(int i = 6; i >= 1; i--)
+		{
+			setCharliePlexingLed(i);
+			wait(100);
+		}
+	}
+}
 
 
 int main( void )
 {
-	b6();
+	b7();
 
 	return 1;
 }
