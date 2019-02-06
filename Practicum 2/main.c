@@ -10,31 +10,62 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
+
+int digit = 0;
+
+const unsigned char
+NUMBERS[10] =
+{
+	// dPgfedcba
+	0b00111111, // 0
+	0b00000110, // 1
+	0b01011011, // 2
+	0b01001111, // 3
+	0b01100110, // 4
+	0b01101101, // 5
+	0b01111101, // 6
+	0b00000111, // 7
+	0b01111111, // 8
+	0b01101111, // 9
+	0b01110111, // A
+	0b01110100, // B
+	0b00111001, // C
+	0b01011110, // D
+	0b01101011, // E
+};
+
+void display(int digit){
+	if( 0 <= digit <= 15){
+		PORTA = NUMBERS[digit];
+	}
+	else {
+		PORTA = NUMBERS[15];
+	}
+
+}
+
 ISR( INT1_vect )
 {
-	if(PORTA >= 0x80) {
-		PORTA = 0x01;
-	} else {
-		PORTA = PORTA << 1;
-	}
+	digit++;
+	display(digit);
 	_delay_ms(100);
 }
 
 ISR( INT2_vect )
 {
-	if(PORTA > 0x01) {
-		PORTA = PORTA >> 1;
-	} else {
-		PORTA = 0x80;
-	}
+	digit--;
+	display(digit);
 	_delay_ms(100);
 }
+
+
+
 
 int main( void )
 {
 	// Init I/O
 	DDRA = 0xFF;
-	DDRD = 0xF0;			// PORTD(3:0) input
+	DDRD = 0xFF;			// PORTD(3:0) input
 
 	// Init Interrupt hardware
 	EICRA |= 0x3C;			// 0b0011 1100
@@ -43,11 +74,15 @@ int main( void )
 	// Enable global interrupt system
 	sei();				
 
-	PORTA = 0x01;
 
 	while (1) {
-		
+		if(PIND & 0x03) {
+			//digit =0;
+		}
 	}
 
 	return 1;
 }
+
+
+
