@@ -2,7 +2,7 @@
  * Practicum 2.c
  *
  * Created: 2/6/2019 10:24:18 AM
- * Author : paulh
+ * Author : paulh, bou & Carlos
  */ 
 #define F_CPU 8000000L
 
@@ -10,11 +10,15 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 
-
 int digit = 0;
 
+typedef struct {
+	unsigned char data;
+	unsigned int delay ;
+} PATTERN_STRUCT;
+
 const unsigned char
-NUMBERS[10] =
+NUMBERS[16] =
 {
 	// dPgfedcba
 	0b00111111, // 0
@@ -28,18 +32,26 @@ NUMBERS[10] =
 	0b01111111, // 8
 	0b01101111, // 9
 	0b01110111, // A
-	0b01110100, // B
-	0b00111001, // C
-	0b01011110, // D
-	0b01101011, // E
+	0x7C, // B
+	0x39, // C
+	0x5E, // D
+	0x79, // E
 };
 
+void wait( int ms )
+{
+	for (int i=0; i<ms; i++)
+	{
+		_delay_ms( 1 );		// library function (max 30 ms at 8MHz)
+	}
+}
+
 void display(int digit){
-	if( 0 <= digit <= 15){
+	if( 0 <= digit && digit <= 14){
 		PORTA = NUMBERS[digit];
 	}
 	else {
-		PORTA = NUMBERS[15];
+		PORTA = NUMBERS[14];
 	}
 
 }
@@ -58,8 +70,28 @@ ISR( INT2_vect )
 	_delay_ms(100);
 }
 
+int b4(){
+	PATTERN_STRUCT pattern[] = {
+		{0x00, 100}, {0x01, 100}, {0x02, 100}, {0x04, 100}, {0x08, 100}, {0x10, 100}, {0x20, 100}, {0x40, 100}, {0x80, 100},
+		{0x80, 100}, {0x40, 100}, {0x20, 100}, {0x10, 100}, {0x08, 100}, {0x04, 100}, {0x02, 100}, {0x01, 100}, {0x00, 100},
+		{0x00, 100},
+		{0x81, 100}, {0x42, 100}, {0x24, 100}, {0x18, 100}, {0x0F, 200}, {0xF0, 200}, {0x0F, 200}, {0xF0, 200},
+		{0x00, 0}
+	};
+	
+	DDRA = 0xFF;
 
+	
+	while (1)
+	{
 
+		for(int i = 0; i < (sizeof(pattern)/sizeof(pattern[0])); i++) {
+			PORTA = pattern[i].data;
+			
+			wait(pattern[i].delay);
+		}
+	}
+}
 
 int main( void )
 {
@@ -76,13 +108,16 @@ int main( void )
 
 
 	while (1) {
-		if(PIND & 0x03) {
+		b4();
+		//if(PIND & 0x03 == 0x03) {
 			//digit =0;
-		}
+			//PORTA = NUMBERS[digit];
+		//}
 	}
 
 	return 1;
 }
+
 
 
 
