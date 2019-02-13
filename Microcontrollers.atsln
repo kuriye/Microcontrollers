@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Atmel Studio Solution File, Format Version 11.00
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Practicum 1 Deel B", "Practicum 1 Deel B\Practicum 1 Deel B.cproj", "{DCE6C7E3-EE26-4D79-826B-08594B9AD897}"
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Practicum 2", "Practicum 2\Practicum 2.cproj", "{62C302E6-D11F-40FA-9D4B-CC8ADCC417F8}"
+EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Practicum 3", "Practicum 3\Practicum 3.cproj", "{6E58BCFE-A532-4FF0-8129-D66188B74499}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{62C302E6-D11F-40FA-9D4B-CC8ADCC417F8}.Debug|AVR.Build.0 = Debug|AVR
 		{62C302E6-D11F-40FA-9D4B-CC8ADCC417F8}.Release|AVR.ActiveCfg = Release|AVR
 		{62C302E6-D11F-40FA-9D4B-CC8ADCC417F8}.Release|AVR.Build.0 = Release|AVR
+		{6E58BCFE-A532-4FF0-8129-D66188B74499}.Debug|AVR.ActiveCfg = Debug|AVR
+		{6E58BCFE-A532-4FF0-8129-D66188B74499}.Debug|AVR.Build.0 = Debug|AVR
+		{6E58BCFE-A532-4FF0-8129-D66188B74499}.Release|AVR.ActiveCfg = Release|AVR
+		{6E58BCFE-A532-4FF0-8129-D66188B74499}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
