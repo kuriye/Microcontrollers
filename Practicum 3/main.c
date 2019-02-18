@@ -12,7 +12,9 @@
 int main(void)
 {
 	init();
+	set_cursor(4);
 	display_text("Hello World!");
+	
 	
     while (1) 
     {
