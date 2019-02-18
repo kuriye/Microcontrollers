@@ -8,8 +8,6 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-void lcd_writeChar( unsigned char dat );
-
 void lcd_command( unsigned char command){
 	PORTC = command & 0xF0;
 	PORTC |= 0x08;
@@ -24,8 +22,24 @@ void lcd_command( unsigned char command){
 	PORTC = 0x00;
 };
 
+void lcd_writeChar(unsigned char byte)
+{
+	PORTC = byte & 0xF0;
+	PORTC = PORTC | 0x0C;
+
+	_delay_ms(1);
+	PORTC = 0x04;
+	PORTC = (byte & 0x0F) << 4;
+	PORTC = PORTC | 0x0C;
+
+	_delay_ms(1);
+	PORTC = 0x00;
+}
+
 void init(){
 	DDRC = 0xFF;
+	PORTC = 0x00;
+
 	// return home
 	lcd_command( 0x02 );
 	// mode: 4 bits interface data, 2 lines, 5x8 dots
@@ -47,21 +61,6 @@ void display_text(char *str){
 void set_cursor(int position){
 	
 	//lcd_command();
-}
-
-void lcd_writeChar( unsigned char dat )
-{
-	PORTC = dat & 0xF0; // hoge nibble
-	PORTC = PORTC | 0x0C; // data (RS=1),
-	// start (EN=1)
-	_delay_ms(1); // wait 1 ms
-	PORTC = 0x04; // stop (EN = 0)
-	PORTC = (dat & 0x0F) << 4; // lage nibble
-	PORTC = PORTC | 0x0C; // data (RS=1),
-	// start (EN=1)
-	_delay_ms(1); // wait 1 ms
-	PORTC = 0x00; // stop
-	// (EN=0 RS=0)
 }
 
 
