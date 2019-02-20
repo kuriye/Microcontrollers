@@ -23,7 +23,7 @@ int main(void)
 	while (1)
 	{
 		ADCSRA |= BIT(6);
-		while(ADCSRA & BIT(6)); //Wachten voordat interrupt voorbij is
+		while(ADCSRA & BIT(6)); //Wachten totdat interrupt voorbij is
 		PORTA = ADCH;
 		
 		_delay_ms(2000);
