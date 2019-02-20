@@ -10,18 +10,15 @@
 #include "lcd.h"
 #include <util/delay.h>
 
-int counter = 0;
-int ms_counter = 0;
-int mses[] = {25, 15};
-ISR(TIMER2_COMP_vect)
+#define BIT(x)	(1 << (x))
+char numbers[4];
+
+ISR( TIMER2_OVF_vect )
 {
-	if((++counter) > mses[ms_counter])
-	{
-		PORTD ^= 1;
-		TCNT2 = 0;
-		ms_counter = (ms_counter+1)%2;
-		counter = 0;
-	}
+	sprintf(numbers, "%d", TCNT2);
+	//set_cursor(0);
+	display_text(numbers);
+	set_cursor(0);
 }
 
 void b1()
@@ -35,14 +32,17 @@ void b2()
 {
 	init();
 
-	TCNT2 = -1; // of TCNT2=0xf6
-	TIMSK |= BIT(6);
-	TCCR2 = 0b00011111;
-	
+	TCCR2 = (1 << COM21) | (1 << COM20) |(1 << CS22) | (1 << CS21);
+
 	DDRD &= ~BIT(7);
 
-	//enable interupts
-	sei();
+	while(1)
+	{
+		sprintf(numbers, "%d", TCNT2);
+		display_text(numbers);
+		set_cursor(0);
+		_delay_ms(100);
+	}
 }
 
 b3()
@@ -58,7 +58,7 @@ b3()
 
 int main(void)
 {
-	b3();
+	b2();
 	
     while (1) 
     {
