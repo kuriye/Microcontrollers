@@ -12,13 +12,13 @@ void lcd_command( unsigned char command){
 	PORTC = command & 0xF0;
 	PORTC |= 0x08;
 	
-	_delay_ms(25);
+	_delay_ms(2);
 	PORTC = 0x04;
 	
 	PORTC = (command & 0x0F) << 4;
 	PORTC |= 0x08;
 	
-	_delay_ms(25);
+	_delay_ms(2);
 	PORTC = 0x00;
 };
 
@@ -27,12 +27,12 @@ void lcd_writeChar(unsigned char byte)
 	PORTC = byte & 0xF0;
 	PORTC = PORTC | 0x0C;
 
-	_delay_ms(1);
+	_delay_ms(2);
 	PORTC = 0x04;
 	PORTC = (byte & 0x0F) << 4;
 	PORTC = PORTC | 0x0C;
 
-	_delay_ms(1);
+	_delay_ms(2);
 	PORTC = 0x00;
 }
 
