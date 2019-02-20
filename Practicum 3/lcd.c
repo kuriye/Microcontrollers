@@ -68,6 +68,6 @@ void set_cursor(int position){
 	{
 		lcd_command(0x80 + position);
 	}
-}
+}void clear(){	lcd_command(0x01);}
 
 
