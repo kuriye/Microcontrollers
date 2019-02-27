@@ -4,7 +4,7 @@
  * Created: 27/02/2019 10:27:49
  * Author : Bou's Laptop
  */ 
-
+#define F_CPU 8000000L
 #include <avr/io.h>
 #include <util/delay.h>
 #define BIT(x) ( 1<<x )
@@ -95,6 +95,14 @@ void spi_writeWord ( unsigned char adress, unsigned char data ) // Write a word 
 	spi_slaveDeSelect(0); // Deselect display chip
 }
 
+void writeLedDisplay( int value )
+{
+	spi_writeWord(1, value%10); 
+	spi_writeWord(2, value%100/10); 
+	spi_writeWord(3, value%1000/100); 
+	spi_writeWord(4, value%10000/1000); 
+}
+
 
 int main()
 {
@@ -105,16 +113,9 @@ int main()
 	for (char i =1; i<=4; i++)
 	{
 		spi_writeWord ( i, 0 );
-		wait(1000);
 	}
 	wait(1000);
-	// write 4-digit data
-	for (char i =1; i<=4; i++)
-	{
-		spi_writeWord ( i, i );
-		wait(1000);
-	}
-	wait(1000);
+	writeLedDisplay(233);
 	return (1);
 }
 
