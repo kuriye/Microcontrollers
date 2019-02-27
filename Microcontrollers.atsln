@@ -15,6 +15,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Practicum 4 B2", "Practicum
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Practicum 4 B3", "Practicum 4 B3\Practicum 4 B3.cproj", "{69D1CCE4-E936-43F7-ACDF-442F8DA9FA9A}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Practicum 5 C0", "Practicum 5 C0\Practicum 5 C0.cproj", "{8D202E93-EC6F-4920-92EA-00BFF5FCBD9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -45,6 +47,10 @@ Global
 		{69D1CCE4-E936-43F7-ACDF-442F8DA9FA9A}.Debug|AVR.Build.0 = Debug|AVR
 		{69D1CCE4-E936-43F7-ACDF-442F8DA9FA9A}.Release|AVR.ActiveCfg = Release|AVR
 		{69D1CCE4-E936-43F7-ACDF-442F8DA9FA9A}.Release|AVR.Build.0 = Release|AVR
+		{8D202E93-EC6F-4920-92EA-00BFF5FCBD9E}.Debug|AVR.ActiveCfg = Debug|AVR
+		{8D202E93-EC6F-4920-92EA-00BFF5FCBD9E}.Debug|AVR.Build.0 = Debug|AVR
+		{8D202E93-EC6F-4920-92EA-00BFF5FCBD9E}.Release|AVR.ActiveCfg = Release|AVR
+		{8D202E93-EC6F-4920-92EA-00BFF5FCBD9E}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
