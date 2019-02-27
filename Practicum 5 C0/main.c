@@ -16,6 +16,9 @@
 #define SPI_SS 0 // PB0: spi Pin Slave Select
 // wait(): busy waiting for 'ms' millisecond - used library: util/delay.h
 
+void spi_writeWord(unsigned char adress, unsigned char data);
+void displayOn();
+
 void wait(int ms)
 {
 	for (int i=0; i<ms; i++)
@@ -63,41 +66,35 @@ void spi_slaveDeSelect(unsigned char chipNumber)
 // Initialize the driver chip (type MAX 7219)
 void displayDriverInit()
 {
-	spi_slaveSelect(0); // Select display chip (MAX7219)
-	spi_write(0x09); // Register 09: Decode Mode
-	spi_write(0xFF); // -> 1's = BCD mode for all digits
-	spi_slaveDeSelect(0); // Deselect display chip
-	spi_slaveSelect(0); // Select dispaly chip
-	spi_write(0x0A); // Register 0A: Intensity
-	spi_write(0x04); // -> Level 4 (in range [1..F])
-	spi_slaveDeSelect(0); // Deselect display chip
-	spi_slaveSelect(0); // Select display chip
-	spi_write(0x0B); // Register 0B: Scan-limit
-	spi_write(0x01); // -> 1 = Display digits 0..1
-	spi_slaveDeSelect(0); // Deselect display chip
-	spi_slaveSelect(0); // Select display chip
-	spi_write(0x0C); // Register 0B: Shutdown register
-	spi_write(0x01); // -> 1 = Normal operation
-	spi_slaveDeSelect(0); // Deselect display chip
+	spi_writeWord(0x09, 0xFF);  // Selects the  Decode Mode register and sets it FF 1's for all digits
+	
+	spi_writeWord(0x0A, 0x0F); // Selects the intensity register and sets it to F [1..F]
+	
+	spi_writeWord(0x0B, 0x04); // Selects the number of chips register and sets it to 4
+	displayOn();
 }
 
 // Set display on ('normal operation')
 void displayOn()
 {
-	spi_slaveSelect(0); // Select display chip
-	spi_write(0x0C); // Register 0B: Shutdown register
-	spi_write(0x01); // -> 1 = Normal operation
-	spi_slaveDeSelect(0); // Deselect display chip
+	spi_writeWord(0x0C, 0x01);
 }
 
 // Set display off ('shut down')
 void displayOff()
 {
+	spi_writeWord(0x0C, 0x00);
+}
+
+
+void spi_writeWord ( unsigned char adress, unsigned char data ) // Write a word = address 
+{
 	spi_slaveSelect(0); // Select display chip
-	spi_write(0x0C); // Register 0B: Shutdown register
-	spi_write(0x00); // -> 1 = Normal operation
+	spi_write(adress); 
+	spi_write(data); 
 	spi_slaveDeSelect(0); // Deselect display chip
 }
+
 
 int main()
 {
@@ -105,21 +102,16 @@ int main()
 	spi_masterInit(); // Initialize spi module
 	displayDriverInit(); // Initialize display chip
 	// clear display (all zero's)
-	for (char i =1; i<=2; i++)
+	for (char i =1; i<=4; i++)
 	{
-		spi_slaveSelect(0); // Select display chip
-		spi_write(i); // digit adress: (digit place)
-		spi_write(0); // digit value: 0
-		spi_slaveDeSelect(0); // Deselect display chip
+		spi_writeWord ( i, 0 );
+		wait(1000);
 	}
 	wait(1000);
 	// write 4-digit data
-	for (char i =1; i<=2; i++)
+	for (char i =1; i<=4; i++)
 	{
-		spi_slaveSelect(0); // Select display chip
-		spi_write(i); // digit adress: (digit place)
-		spi_write(i); // digit value: i (= digit place)
-		spi_slaveDeSelect(0); // Deselect display chip
+		spi_writeWord ( i, i );
 		wait(1000);
 	}
 	wait(1000);
