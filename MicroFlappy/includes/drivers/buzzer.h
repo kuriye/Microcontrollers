@@ -9,8 +9,7 @@
 #ifndef BUZZER_H_
 #define BUZZER_H_
 
-
-
-
+void BuzzerInit(void);
+void BuzzerBuzz(uint16_t ms);
 
 #endif /* BUZZER_H_ */

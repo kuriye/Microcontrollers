@@ -40,10 +40,6 @@ Errors and omissions should be reported to codelibraries@exploreembedded.com
 #ifndef _DELAY_H
 #define _DELAY_H
 
-#define F_CPU 8000000L
-
-#include "stdutils.h"
-
 /* Count to generate 1ms delay at 20Mhz clock.
   The value is obtained by toggling the Port pins to generate 2Kz square wave */
 #define C_CountForOneMsDelay_U16 300u
