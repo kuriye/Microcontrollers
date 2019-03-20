@@ -9,19 +9,16 @@
 
 #include <avr/io.h>
 #include <stdio.h>
-#include "drivers/buzzer.h"
 #include "logic/delay.h"
+#include "logic/sound.h"
 
 int main(void)
-{
-	printf("\nHello world!");
-	
-	BuzzerInit();
-	BuzzerBuzz(1000000, 3600);
+{	
+	SoundTest();
 	
     while (1) 
     {
-		
+		//
     }
 }
 

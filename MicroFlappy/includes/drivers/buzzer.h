@@ -5,7 +5,6 @@
  *  Author: Bou's Laptop
  */ 
 
-
 #ifndef BUZZER_H_
 #define BUZZER_H_
 
@@ -18,6 +17,13 @@
  */
 void BuzzerInit(void);
 
-void BuzzerBuzz(uint32_t duration_us, uint32_t freq_Hz);
+/**
+ * \brief - BuzzerBeep lets the buzzer make a single beep
+ * 
+ * \param void
+ * 
+ * \return void
+ */
+void BuzzerBeep(void);
 
 #endif /* BUZZER_H_ */
