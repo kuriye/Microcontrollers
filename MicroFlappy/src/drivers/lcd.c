@@ -8,8 +8,10 @@
 #define F_CPU 8000000L
 #include <avr/io.h>
 #include <util/delay.h>
+#include "lcd.h"
 
-void lcd_command( unsigned char command){
+void LcdCommand( unsigned char command)
+{
 	PORTC = command & 0xF0;
 	PORTC |= 0x08;
 	
@@ -37,36 +39,39 @@ void lcd_writeChar(unsigned char byte)
 	PORTC = 0x00;
 }
 
-void lcd_init(){
+void LcdInit()
+{
 	DDRC = 0xFF;
 	PORTC = 0x00;
 
 	// return home
-	lcd_command( 0x02 );
+	LcdCommand( 0x02 );
 	// mode: 4 bits interface data, 2 lines, 5x8 dots
-	lcd_command( 0x28 );
+	LcdCommand( 0x28 );
 	// display: on, cursor off, blinking off
-	lcd_command( 0x0E );
+	LcdCommand( 0x0E );
 	// entry mode: cursor to right, no shift
-	lcd_command( 0x06 );
+	LcdCommand( 0x06 );
 	// RAM adress: 0, first position, line 1
-	lcd_command( 0x80 );
+	LcdCommand( 0x80 );
 }
 
-void lcd_display_text(char *str){
+void LcdDisplayText(char *str)
+{
 	for(; *str; str++){
 		lcd_writeChar(*str);
 	}
 }
 
-void lcd_set_cursor(int position){
+void LcdSetCursor(int position)
+{
 	
 	if(position >= 16)
 	{
-		lcd_command(0xc0 + (position - 16));
+		LcdCommand(0xc0 + (position - 16));
 	}
 	else
 	{
-		lcd_command(0x80 + position);
+		LcdCommand(0x80 + position);
 	}
-}void lcd_clear(){	lcd_command(0x01);}
+}void LcdClear(){	LcdCommand(0x01);}
