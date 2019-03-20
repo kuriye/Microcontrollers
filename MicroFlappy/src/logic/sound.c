@@ -10,18 +10,23 @@
 #include "logic\delay.h"
 #include "logic\sound.h"
 
+#define UNDEFINED -1
+
+SoundMusic update_music;
+int16_t update_sound_index = UNDEFINED;
+
 void SoundTest(void)
 {
 	SoundInit();
 	
-	SoundTune song[10];
+	SoundTune song[5];
 	uint16_t i;
-	for(i = 0; i < 10; i++)
+	for(i = 0; i < 5; i++) //create default song
 	{
 		song[i] = (SoundTune) {.duration_us = 1000000, .freq_Hz = 250 * (i+1)};
 	}
-	
-	SoundPlayMusic(song, 10);
+		
+	SoundPlayMusic((SoundMusic) {.tunes = song, .tunesAmount = 10});
 }
 
 void SoundInit(void)
@@ -29,26 +34,45 @@ void SoundInit(void)
 	BuzzerInit();
 }
 
-void SoundUpdate(void)
+void SoundSetUpdateMusic(SoundMusic music)
 {
-	
+	update_music = music;
+	update_sound_index = 0;
 }
 
-void SoundPlayMusic(SoundTune* music, uint16_t tuneAmount)
+void SoundUpdate(void)
 {
-	uint16_t i;
-	for (i = 0; i < tuneAmount; i++)
+	if(update_sound_index == UNDEFINED)
 	{
-		SoundBuzzTune(music[i]);
+		Delay_ms(100);
+		return;
+	}
+	
+	SoundPlayTune(update_music.tunes[update_sound_index]);
+	
+	update_sound_index++;
+	
+	if(update_sound_index >= update_music.tunesAmount) //checks if upped update_music index equals to tunesAmount
+	{
+		update_sound_index = UNDEFINED;
 	}
 }
 
-void SoundBuzzTune(SoundTune tune)
+void SoundPlayMusic(SoundMusic music)
 {
-	SoundBuzz(tune.duration_us, tune.freq_Hz);
+	uint16_t i;
+	for (i = 0; i < music.tunesAmount; i++)
+	{
+		SoundPlayTune(music.tunes[i]);
+	}
 }
 
-void SoundBuzz(uint32_t duration_us, uint32_t freq_Hz)
+void SoundPlayTune(SoundTune tune)
+{
+	SoundPlay(tune.duration_us, tune.freq_Hz);
+}
+
+void SoundPlay(uint32_t duration_us, uint32_t freq_Hz)
 {
 	uint32_t delay_us = 1000000 / freq_Hz;
 	uint32_t i;

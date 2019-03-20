@@ -12,38 +12,43 @@
 
 void I2CInit()
 {
-	TWSR=0x00; //set presca1er bits to zero
-	TWBR=0x46; //SCL frequency is 50K for 16Mhz
-	TWCR=0x04; //enab1e TWI module
+	TWSR=0x00;
+	TWBR=0x20;
 }
 
 void I2CStart()
 {
-	TWCR = ((1<<TWINT) | (1<<TWSTA) | (1<<TWEN));
+	TWCR = (1<<TWINT) | (1<< TWSTA) | (1 << TWEN);
 	I2CWait();
 }
 
 void I2CWait()
 {
-	while (!(TWCR & (1<<TWINT)));
+	while(!(TWCR & (1<<TWINT)));
 }
 
 void I2CStop(void)
 {
 	TWCR = ((1<< TWINT) | (1<<TWEN) | (1<<TWSTO));
-	Delay_us(100);
+}
+
+void I2CSelect(uint8_t addr, I2C_SEL_MODE mode){
+	
+	TWDR = addr | (mode);
+	TWCR = (1 <<TWINT ) | (1 <<TWEN);
+	I2CWait();
 }
 
 void I2CWrite(uint8_t data)
 {
 	TWDR = data;
-	TWCR = ((1<< TWINT) | (1<<TWEN));
+	TWCR = (1 << TWINT) | (1 << TWEN);
 	I2CWait();
 }
 
 uint8_t I2CRead(uint8_t options)
 {
-	TWCR = ((1<< TWINT) | (1<<TWEN) | (options<<TWEA));
+	TWCR = (1 << TWINT) | (1 << TWEN) | (options << TWEA);
 	I2CWait();
 	return TWDR;
 }

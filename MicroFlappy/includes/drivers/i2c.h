@@ -9,6 +9,11 @@
 #ifndef I2C_DRIVER_H_
 #define I2C_DRIVER_H_
 
+typedef enum {
+	I2C_SEL_MODE_W = 0,
+	I2C_SEL_MODE_R = 1
+} I2C_SEL_MODE;
+
 /**
  * \brief Initializes the I2C driver
  * 
@@ -51,6 +56,17 @@ void I2CStop(void);
  * \return void
  */
 void I2CWrite(uint8_t data);
+
+
+/**
+ * \brief Selects an device by given id and sets mode to either read or write
+ * 
+ * \param addr The device address
+ * \param mode The mode (R/W)
+ * 
+ * \return void
+ */
+void I2CSelect(uint8_t addr, I2C_SEL_MODE mode);
 
 
 /**

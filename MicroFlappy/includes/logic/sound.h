@@ -14,6 +14,14 @@ typedef struct
 	uint32_t freq_Hz;
 } SoundTune;
 
+typedef struct
+{
+	SoundTune* tunes;
+	uint16_t tunesAmount;
+} SoundMusic;
+
+//Functions:
+
 void SoundTest(void);
 
 /**
@@ -25,34 +33,29 @@ void SoundTest(void);
  */
 void SoundInit(void);
 
-/**
- * \brief //TODO: brief
- * 
- * \param void
- * 
- * \return void
- */
+void SoundSetUpdateMusic(SoundMusic music);
+
 void SoundUpdate(void);
 
-void SoundPlayMusic(SoundTune* music, uint16_t tuneAmount);
+void SoundPlayMusic(SoundMusic music);
 
 /**
- * \brief - SoundBuzzTime buzzes for a speficied duration on a specified frequency
+ * \brief - SoundPlayTime plays for a speficied duration on a specified frequency
  * 
- * \param tune - tune to buzz
+ * \param tune - tune to play
  * 
  * \return void
  */
-void SoundBuzzTune(SoundTune tune);
+void SoundPlayTune(SoundTune tune);
 
 /**
- * \brief - SoundBuzz buzzes for a speficied duration on a specified frequency
+ * \brief - SoundPlay plays for a speficied duration on a specified frequency
  * 
- * \param duration_us - duration of the buzz in microseconds
- * \param freq_Hz - frequency of the buzz
+ * \param duration_us - duration of the sound in microseconds
+ * \param freq_Hz - frequency of the sound
  * 
  * \return void
  */
-void SoundBuzz(uint32_t duration_us, uint32_t freq_Hz);
+void SoundPlay(uint32_t duration_us, uint32_t freq_Hz);
 
 #endif /* SOUND_H_ */

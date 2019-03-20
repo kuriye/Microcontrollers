@@ -5,25 +5,24 @@
  *  Author:	Paul Hobbel
  */ 
 
+#include <stdio.h>
 #include <avr/io.h>
 #include "drivers/i2c.h"
 #include "drivers/rtc.h"
 
-#define ReadMode			0xD1u	// DS1307 ID
-#define WriteMode			0xD0u	// DS1307 ID
+#define DS1307_ID			0xD0	// DS1307 ID
 
-#define SecondReg			0x00u	// Address to access Ds1307 SEC register
-#define ControlReg			0x07u	// Address to access Ds1307 CONTROL register
-
+#define DS1307_SEC_REG		0x00	// Address to access Ds1307 SEC register
+#define DS1307_CONTROL_REG	0x07	// Address to access Ds1307 CONTROL register
 
 void RtcInit()
 {
 	I2CInit();
 	I2CStart();
 
-	I2CWrite(WriteMode);			// Connect to DS1307 by sending its ID on I2c Bus
-	I2CWrite(ControlReg);			// Select the Ds1307 ControlRegister to configure Ds1307
-
+	I2CSelect(DS1307_ID, I2C_SEL_MODE_W);
+	
+	I2CWrite(DS1307_CONTROL_REG);	// Select the Ds1307 ControlRegister to configure Ds1307
 	I2CWrite(0x00);					// Write 0x00 to Control register to disable SQW-Out
 
 	I2CStop();
@@ -33,8 +32,8 @@ void RtcSetDateTime(rtc_t *rtc)
 {
 	I2CStart();
 
-	I2CWrite(WriteMode);			// connect to DS1307 by sending its ID on I2c Bus
-	I2CWrite(SecondReg);			// Request sec RAM address at 00H
+	I2CSelect(DS1307_ID, I2C_SEL_MODE_W);
+	I2CWrite(DS1307_SEC_REG);		// Request sec RAM address at 00H
 
 	I2CWrite(rtc->sec);				// Write sec from RAM address 00H
 	I2CWrite(rtc->min);				// Write min from RAM address 01H
@@ -51,13 +50,13 @@ void RtcGetDateTime(rtc_t *rtc)
 {
 	I2CStart();
 
-	I2CWrite(WriteMode);			// connect to DS1307 by sending its ID on I2c Bus
-	I2CWrite(SecondReg);			// Request Sec RAM address at 00H
+	I2CSelect(DS1307_ID, I2C_SEL_MODE_W);
+	I2CWrite(DS1307_SEC_REG);		// Request Sec RAM address at 00H
 
 	I2CStop();
 
-	I2CStart();						// Start I2C communication
-	I2CWrite(ReadMode);				// connect to DS1307(Read mode) by sending its ID
+	I2CStart();
+	I2CSelect(DS1307_ID, I2C_SEL_MODE_R);
 
 	rtc->sec = I2CRead(1);			// Read sec and return Positive ACK
 	rtc->min = I2CRead(1);			// Read min and return Positive ACK

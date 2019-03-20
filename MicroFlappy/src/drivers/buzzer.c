@@ -15,6 +15,6 @@ void BuzzerInit(void)
 
 void BuzzerBeep(void)
 {
-	PORTB = 0xff;        // Turn ON the Buzzer conneted to PORTB
-	PORTB = 0x00;        // Turn OFF the Buzzer connected to PORTB
+	PORTB = 0xff;		//Turn ON the Buzzer conneted to PORTB
+	PORTB = 0x00;		//Turn OFF the Buzzer connected to PORTB
 }
