@@ -97,10 +97,18 @@ void spi_writeWord ( unsigned char adress, unsigned char data ) // Write a word 
 
 void writeLedDisplay( int value )
 {
-	spi_writeWord(1, value%10); 
-	spi_writeWord(2, value%100/10); 
-	spi_writeWord(3, value%1000/100); 
-	spi_writeWord(4, value%10000/1000); 
+	spi_writeWord(1, abs(value)%10);
+	spi_writeWord(2, abs(value)%100/10);
+	spi_writeWord(3, abs(value)%1000/100);
+	if( value > 0)
+	{
+		
+		spi_writeWord(4, value%10000/1000);
+	}
+	else
+	{
+		spi_writeWord(4, 10);
+	}
 }
 
 
@@ -115,7 +123,13 @@ int main()
 		spi_writeWord ( i, 0 );
 	}
 	wait(1000);
-	writeLedDisplay(233);
+	writeLedDisplay(60);
+	wait(1000);
+	writeLedDisplay(-234);
+	wait(1000);
+	writeLedDisplay(3532);
+	wait(1000);
+	writeLedDisplay(-83);
 	return (1);
 }
 
