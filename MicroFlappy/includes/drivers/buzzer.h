@@ -18,14 +18,6 @@
  */
 void BuzzerInit(void);
 
-
-/**
- * \brief - BuzzerBuzz turns on the Buzzer for the specified ms
- * 
- * \param ms - the duration of the buzz
- * 
- * \return void
- */
-void BuzzerBuzz(uint16_t ms);
+void BuzzerBuzz(uint32_t duration_us, uint32_t freq_Hz);
 
 #endif /* BUZZER_H_ */

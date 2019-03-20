@@ -6,16 +6,25 @@
  */ 
 
 #include <avr/io.h>
+#include <stdio.h>
 #include "logic/delay.h"
+#include "drivers/lcd.h"
 
 void BuzzerInit(void)
 {
 	DDRB = 0xff;		//PORTB is output
 }
 
-void BuzzerBuzz(uint16_t ms)
+void BuzzerBuzz(uint32_t duration_us, uint32_t freq_Hz)
 {
-	PORTB = 0xff;        // Turn ON the Buzzer conneted to PORTB
-	Delay_ms(ms);		 // Wait for some time
-	PORTB = 0x00;        // Turn OFF the Buzzer connected to PORTB
+	uint32_t delay_us = 1000000 / freq_Hz;
+	uint32_t i;
+	
+	for (i = 0; i < duration_us; i += delay_us)
+	{
+		PORTB = 0xff;        // Turn ON the Buzzer conneted to PORTB
+		PORTB = 0x00;        // Turn OFF the Buzzer connected to PORTB
+		
+		Delay_us(delay_us);
+	}
 }
