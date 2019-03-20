@@ -122,26 +122,43 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="drivers\glcd.c">
+    <Compile Include="includes\drivers\glcd.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\lcd.c">
+    <Compile Include="includes\drivers\lcd.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\rtc.c">
+    <Compile Include="includes\drivers\rtc.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="drivers\sound.c">
+    <Compile Include="includes\drivers\sound.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\drivers\glcd.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\lcd.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\rtc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\sound.c">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="drivers" />
-    <Folder Include="logic" />
-    <Folder Include="presentation" />
+    <Folder Include="includes" />
+    <Folder Include="includes\drivers" />
+    <Folder Include="includes\logic" />
+    <Folder Include="includes\presentation" />
+    <Folder Include="src" />
+    <Folder Include="src\drivers\" />
+    <Folder Include="src\logic\" />
+    <Folder Include="src\presentation\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
