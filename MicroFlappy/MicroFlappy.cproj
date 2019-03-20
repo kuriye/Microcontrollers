@@ -157,6 +157,9 @@
     <Compile Include="includes\drivers\buzzer.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="includes\drivers\touchscreen.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="includes\logic\delay.h">
       <SubType>compile</SubType>
     </Compile>
@@ -182,6 +185,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\buzzer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\touchscreen.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\logic\delay.c">

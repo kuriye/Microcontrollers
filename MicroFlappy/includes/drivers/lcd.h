@@ -48,7 +48,7 @@ void LcdWriteChar(unsigned char byte);
  * 
  * \return void
  */
-void LcdInit();
+void LcdInit(void);
 
 
 /**
@@ -75,6 +75,6 @@ void LcdSetCursor(int position);
  * 
  * \return void
  */
-void LcdClear();
+void LcdClear(void);
 
 #endif /* LCD_DRIVER_H_ */

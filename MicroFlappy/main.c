@@ -13,7 +13,7 @@
 #include "drivers/rtc.h"
 #include "drivers/lcd.h"
 #include "drivers/buzzer.h"
-
+#include "drivers/glcd.h"
 #include "logic/time.h"
 #include "logic/delay.h"
 
@@ -22,6 +22,8 @@ int main(void)
 {
 	TimeInit();
 	LcdInit();
+	GlcdInit();
+	GLCD_DisplayString("Hello Flappy!");
     while (1) 
     {
 		TimeUpdate();
