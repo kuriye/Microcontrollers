@@ -132,7 +132,10 @@
     <Compile Include="includes\drivers\rtc.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="includes\drivers\sound.h">
+    <Compile Include="includes\drivers\buzzer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="includes\logic\delay.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
@@ -150,7 +153,10 @@
     <Compile Include="src\drivers\rtc.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\drivers\sound.c">
+    <Compile Include="src\drivers\buzzer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\logic\delay.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
