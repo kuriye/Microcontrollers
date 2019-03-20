@@ -8,6 +8,8 @@
 #ifndef RTC_DRIVER_H_
 #define RTC_DRIVER_H_
 
+#include <stdint.h>
+
 typedef struct
 {
 	uint8_t sec;
