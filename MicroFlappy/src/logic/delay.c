@@ -42,8 +42,6 @@ Errors and omissions should be reported to codelibraries@exploreembedded.com
 #include <util/delay.h>
 #include "logic/delay.h"
 
-#define F_CPU 8000000L
-
 /***************************************************************************************************
                          void DELAY_us(uint16_t us_count)
  ****************************************************************************************************

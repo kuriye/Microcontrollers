@@ -8,6 +8,7 @@
 #include <stdint.h>
 
 #include "drivers/i2c.h"
+#include "logic/delay.h"
 
 void I2CInit()
 {
@@ -30,7 +31,7 @@ void I2CWait()
 void I2CStop(void)
 {
 	TWCR = ((1<< TWINT) | (1<<TWEN) | (1<<TWSTO));
-	//DELAY_us(100) ; //wait for a short time
+	Delay_us(100);
 }
 
 void I2CWrite(uint8_t data)
