@@ -38,6 +38,8 @@ Errors and omissions should be reported to codelibraries@exploreembedded.com
 15.0: Initial version 
  ***************************************************************************************************/
 
+#define F_CPU 8000000L
+
 #include <avr/io.h>
 #include <util/delay.h>
 #include "logic/delay.h"

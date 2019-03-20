@@ -8,12 +8,18 @@
 #define F_CPU 8000000L
 
 #include <avr/io.h>
+
+#include "drivers/rtc.h"
+#include "drivers/lcd.h"
 #include "drivers/buzzer.h"
+
 #include "logic/delay.h"
 
 
 int main(void)
 {
+	RtcInit();
+	LcdInit();
     while (1) 
     {
 		//BuzzerInit();
