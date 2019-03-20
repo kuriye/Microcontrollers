@@ -17,6 +17,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Practicum 4 B3", "Practicum
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Practicum 5 C0", "Practicum 5 C0\Practicum 5 C0.cproj", "{8D202E93-EC6F-4920-92EA-00BFF5FCBD9E}"
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "MicroFlappy", "MicroFlappy\MicroFlappy.cproj", "{C69D7FBA-B77A-4E60-B691-595B508A2D6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -51,6 +53,10 @@ Global
 		{8D202E93-EC6F-4920-92EA-00BFF5FCBD9E}.Debug|AVR.Build.0 = Debug|AVR
 		{8D202E93-EC6F-4920-92EA-00BFF5FCBD9E}.Release|AVR.ActiveCfg = Release|AVR
 		{8D202E93-EC6F-4920-92EA-00BFF5FCBD9E}.Release|AVR.Build.0 = Release|AVR
+		{C69D7FBA-B77A-4E60-B691-595B508A2D6F}.Debug|AVR.ActiveCfg = Debug|AVR
+		{C69D7FBA-B77A-4E60-B691-595B508A2D6F}.Debug|AVR.Build.0 = Debug|AVR
+		{C69D7FBA-B77A-4E60-B691-595B508A2D6F}.Release|AVR.ActiveCfg = Release|AVR
+		{C69D7FBA-B77A-4E60-B691-595B508A2D6F}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
