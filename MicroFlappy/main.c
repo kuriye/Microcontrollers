@@ -11,14 +11,14 @@
 #include "drivers/buzzer.h"
 #include "logic/delay.h"
 
-
 int main(void)
 {
+	BuzzerInit();
+	
     while (1) 
     {
-		//BuzzerInit();
-		//BuzzerBuzz(1000);
-		//Delay_ms(3000);
+		BuzzerBuzz(2000);
+		Delay_ms(10000);
     }
 }
 

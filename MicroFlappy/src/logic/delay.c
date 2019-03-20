@@ -38,6 +38,8 @@ Errors and omissions should be reported to codelibraries@exploreembedded.com
 15.0: Initial version 
  ***************************************************************************************************/
 
+#define F_CPU 8000000L
+
 #include <avr/io.h>
 #include <util/delay.h>
 #include "logic/delay.h"
@@ -94,12 +96,12 @@ void Delay_ms(uint16_t ms_count)
       It generates a approximate delay of 1sec for each count,
       if 10 is passed as the argument then it generates delay of 10sec
  ***************************************************************************************************/
-#if (ENABLE_DELAY_sec == 1)
+#if (ENABLE_Delay_sec == 1)
 
 void DELAY_sec(uint16_t sec_count) 
 {
     while (sec_count != 0) {
-        DELAY_ms(1000); //DELAY_ms is called to generate 1sec delay
+        Delay_ms(1000); //DELAY_ms is called to generate 1sec delay
         sec_count--;
     }
 }
