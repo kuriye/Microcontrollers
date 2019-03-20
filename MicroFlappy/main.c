@@ -6,13 +6,17 @@
  */ 
 
 #include <avr/io.h>
+#include "drivers/buzzer.h"
+#include "logic/delay.h"
 
 
 int main(void)
 {
-    /* Replace with your application code */
     while (1) 
     {
+		//BuzzerInit();
+		//BuzzerBuzz(1000);
+		//Delay_ms(3000);
     }
 }
 
