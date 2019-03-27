@@ -24,7 +24,12 @@
 #define GLCD_E7 7
 
 
-
+typedef struct{
+	uint8_t PageNum;
+	uint8_t LineNum;
+	uint8_t CursorPos;
+	uint8_t Invertdisplay;
+}GLCD_Config;
 
 /**
  * \brief 
@@ -46,6 +51,17 @@ void GlcdCommand(char Command);
 
 void GlcdBusyChecker(void);
 
+void GlcdClear(void);
+
+void GLCD_GoToPage(uint8_t pageNumber);
+
+void  GLCD_GoToLine(uint8_t var_lineNumber_u8);
+
+static void glcd_DataWrite( uint8_t data);
+
+static void GlcdToScreen0(void);
+
+static void GlcdToScreen1(void);
 
 
 
