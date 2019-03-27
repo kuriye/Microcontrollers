@@ -9,8 +9,11 @@
 
 #include <stdio.h>
 #include <avr/io.h>
+#include <avr/delay.h>
+
 #include "drivers/rtc.h"
 #include "drivers/lcd.h"
+#include "drivers/ledmatrix.h"
 #include "drivers/buzzer.h"
 
 #include "logic/time.h"
@@ -23,6 +26,7 @@ int main(void)
 	RtcInit();
 	LcdInit();
 	matrix_init();
+	matrix_fill();
 	SoundInit();
 	
 	SoundTune song[10];
@@ -34,13 +38,12 @@ int main(void)
 	
 	SoundSetUpdateMusic((SoundMusic) {.tunes = song, .tunesAmount = 10});
 	
-	
     while (1) 
     {
-		TimeUpdate();
-		LcdSetCursor(0);
-		
-		SoundUpdate();
+	    TimeUpdate();
+	    LcdSetCursor(0);
+	    
+	    SoundUpdate();
     }
 }
 
