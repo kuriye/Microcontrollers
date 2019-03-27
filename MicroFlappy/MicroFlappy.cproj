@@ -151,6 +151,9 @@
     <Compile Include="includes\drivers\lcd.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="includes\drivers\ledmatrix.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="includes\drivers\rtc.h">
       <SubType>compile</SubType>
     </Compile>
@@ -179,6 +182,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\lcd.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\ledmatrix.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\rtc.c">

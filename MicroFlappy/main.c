@@ -22,22 +22,24 @@ int main(void)
 	TimeInit();
 	RtcInit();
 	LcdInit();
-	
+	matrix_init();
 	SoundInit();
 	
 	SoundTune song[10];
 	uint16_t i;
 	for(i = 0; i < 10; i++) //create default song
 	{
-		song[i] = (SoundTune) {.duration_us = 100000, .freq_Hz = 250 * (i+1)};
+		song[i] = (SoundTune) {.duration_us = 1000000, .freq_Hz = 250 * (i+1)};
 	}
 	
 	SoundSetUpdateMusic((SoundMusic) {.tunes = song, .tunesAmount = 10});
+	
 	
     while (1) 
     {
 		TimeUpdate();
 		LcdSetCursor(0);
+		
 		SoundUpdate();
     }
 }
