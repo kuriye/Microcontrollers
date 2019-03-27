@@ -160,6 +160,9 @@
     <Compile Include="includes\logic\delay.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="includes\logic\time.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="includes\logic\sound.h">
       <SubType>compile</SubType>
     </Compile>
@@ -185,6 +188,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\logic\delay.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\logic\time.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\logic\sound.c">

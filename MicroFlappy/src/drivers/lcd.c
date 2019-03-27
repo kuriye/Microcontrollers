@@ -47,13 +47,14 @@ void LcdInit()
 	// return home
 	LcdCommand( 0x02 );
 	// mode: 4 bits interface data, 2 lines, 5x8 dots
-	LcdCommand( 0x28 );
+	LcdCommand(CMD_LCD_FOUR_BIT_MODE);
 	// display: on, cursor off, blinking off
-	LcdCommand( 0x0E );
+	LcdCommand(CMD_DISPLAY_ON_CURSOR_OFF);
 	// entry mode: cursor to right, no shift
 	LcdCommand( 0x06 );
 	// RAM adress: 0, first position, line 1
 	LcdCommand( 0x80 );
+	LcdClear();
 }
 
 void LcdDisplayText(char *str)
@@ -74,4 +75,4 @@ void LcdSetCursor(int position)
 	{
 		LcdCommand(0x80 + position);
 	}
-}void LcdClear(){	LcdCommand(0x01);}
+}void LcdClear(){	LcdCommand(CMD_LCD_CLEAR);}

@@ -9,6 +9,20 @@
 #ifndef LCD_DRIVER_H_
 #define LCD_DRIVER_H_
 
+#define CMD_LCD_CLEAR                0x01
+#define CMD_LCD_RETURN_HOME          0x02
+#define CMD_DISPLAY_ON_CURSOR_OFF    0x0C
+#define CMD_DISPLAY_ON_CURSOR_ON     0x0E
+#define CMD_DISPLAY_ON_CURSOR_BLINK  0x0F
+#define CMD_LCD_FOUR_BIT_MODE        0x28
+#define CMD_LCD_EIGHT_BIT_MODE       0x38
+
+typedef enum
+{
+	LCD_LINE_0 = 0x00,
+	LCD_LINE_1 = 0x01
+} LCD_LINE;
+
 /**
  * \brief - LcdCommand is used to let the chip now which command it will do
  * 

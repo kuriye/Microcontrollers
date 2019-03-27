@@ -7,15 +7,19 @@
 
 #define F_CPU 8000000L
 
+#include <stdio.h>
 #include <avr/io.h>
 #include "drivers/rtc.h"
 #include "drivers/lcd.h"
 #include "drivers/buzzer.h"
+
+#include "logic/time.h"
 #include "logic/delay.h"
 #include "logic/sound.h"
 
 int main(void)
-{	
+{
+	TimeInit();
 	RtcInit();
 	LcdInit();
 	
@@ -32,6 +36,8 @@ int main(void)
 	
     while (1) 
     {
+		TimeUpdate();
+		LcdSetCursor(0);
 		SoundUpdate();
     }
 }
