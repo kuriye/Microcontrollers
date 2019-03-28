@@ -49,7 +49,7 @@ int main(void)
 	//SoundSetUpdateMusic((SoundMusic) {.tunes = song, .tunesAmount = 10});
 	
 	
-	MatrixDrawString("AB");
+	MatrixDrawString("ABABAB");
 	
 	
     while (1)
@@ -67,7 +67,7 @@ int main(void)
 		sprintf(text, "   speed: %-5ld", UltrasoneGetDistance());
 		LcdDisplayText(text);
 		
-		_delay_ms(1000);
+		_delay_ms(200);
 		MatrixScrollString();
 		
 		//SoundUpdate();

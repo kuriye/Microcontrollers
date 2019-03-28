@@ -121,7 +121,7 @@ void MatrixDrawString(char text[255])
 	MatrixDrawField(TextToWrite[0]);
 }
 
-int leftShift = 1;
+int leftShift = 0;
 int rightShift = 8;
 int index = 0;
 
