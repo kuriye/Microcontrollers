@@ -20,14 +20,12 @@
 #include "drivers/i2c.h"
 
 #include "logic/time.h"
-#include "logic/delay.h"
-#include "logic/matrixCharacters.h"
 
 int main(void)
 {
-	MatrixCharactersInit();
 	I2CInit();
-	RtcInit();
+	
+	TimeInit();
 	BuzzerInit();
 	UltrasoneInit();
 	
@@ -37,7 +35,7 @@ int main(void)
 	LcdClear();
 	MatrixClear();
 	
-	MatrixDrawString("ABABAB");
+	MatrixDrawString("Nerds are the new cool");
 	
 	
     while (1)
@@ -57,7 +55,7 @@ int main(void)
 		
 		BuzzerSetFrequency(1000 - UltrasoneGetDistance());
 		
-		_delay_ms(50);
+		_delay_ms(10);
 		MatrixScrollString();
 		//SoundUpdate();
     }

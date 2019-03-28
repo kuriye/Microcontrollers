@@ -17,7 +17,6 @@
 
 void RtcInit()
 {
-	I2CInit();
 	I2CStart();
 
 	I2CSelect(DS1307_ID, I2C_SEL_MODE_W);

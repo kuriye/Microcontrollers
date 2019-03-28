@@ -297,6 +297,17 @@ void MatrixCharactersInit(void)
 		0b01100000,
 		0b01111110
 	}};
+	
+	alphabet[26] = (MatrixCharachter) {' ', {
+		0b00000000,
+		0b00000000,
+		0b00000000,
+		0b00000000,
+		0b00000000,
+		0b00000000,
+		0b00000000,
+		0b00000000
+	}};
 }
 
 char* MatrixCharactersGet(char letter)

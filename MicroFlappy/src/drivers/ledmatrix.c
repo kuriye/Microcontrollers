@@ -28,13 +28,16 @@
 char TextToWrite[TEXT_TO_WRITE_MAX_SIZE][HT16K33_MAX_ROWS];
 char FieldToDraw[HT16K33_MAX_ROWS];
 uint8_t leftShift = 0;
-uint8_t ScrollStringIndex = 0;
+int8_t ScrollStringIndex = 0;
+uint8_t textSize = 0;
 
 void MatrixShiftData(int *data);
 
 // Initializes both of the matrix displays
 void MatrixInit()
 {	
+	MatrixCharactersInit();
+	
 	I2CStart();
 	I2CSelect(HT16K33_ADDR, I2C_SEL_MODE_W);
 	I2CWrite(HT16K33_CMD_ON); // Internal osc on 00100001
@@ -103,6 +106,7 @@ void MatrixDrawString(char text[255])
 {	
 	leftShift = 0;
 	ScrollStringIndex = 0;
+	textSize = strlen(text);
 	
 	for(int i = 0; text[i] != '\0'; i++) //all text to upper case
 	{
@@ -112,7 +116,6 @@ void MatrixDrawString(char text[255])
 	for(int i = 0; text[i] != '\0'; i++) //Iterate through chars from string
 	{
 		char letter = text[i];
-		
 		memcpy(TextToWrite[i], MatrixCharactersGet(letter), sizeof(TextToWrite[i]));
 	}
 	
@@ -125,7 +128,8 @@ void MatrixScrollString(void)
 	{
 		char row = 0x00;
 		
-		row |= TextToWrite[ScrollStringIndex][y] << leftShift;
+		if(ScrollStringIndex > -1)
+			row |= TextToWrite[ScrollStringIndex][y] << leftShift;
 		
 		if(ScrollStringIndex+1 < TEXT_TO_WRITE_MAX_SIZE) 
 			row |= TextToWrite[ScrollStringIndex+1][y] >> (HT16K33_MAX_ROWS - leftShift);
@@ -139,6 +143,9 @@ void MatrixScrollString(void)
 	{
 		leftShift = 0;
 		ScrollStringIndex++;
+		
+		if(ScrollStringIndex >= textSize)
+			ScrollStringIndex = -1;
 	}
 	
 	leftShift++;

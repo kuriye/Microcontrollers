@@ -9,9 +9,8 @@
 #ifndef MATRIX_CHARACTERS_H_
 #define MATRIX_CHARACTERS_H_
 
-#define MATRIX_CHARACTER_WIDTH				5
 #define MATRIX_CHARACTER_LENGTH				8
-#define MATRIX_CHARACTER_ALPHABET_LENGTH	26
+#define MATRIX_CHARACTER_ALPHABET_LENGTH	27
 
 typedef struct MatrixCharachter {
 	char letter;
