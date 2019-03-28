@@ -23,9 +23,13 @@
 
 #define D0_I2C_ADDR	((0x70 + 0) << 1)
 
+#define TEXT_TO_WRITE_MAX_SIZE	255
+
 char CurrentField[HT16K33_MAX_ROWS];
-char TextToWrite[255][HT16K33_MAX_ROWS];
+char TextToWrite[TEXT_TO_WRITE_MAX_SIZE][HT16K33_MAX_ROWS];
 char FieldToDraw[HT16K33_MAX_ROWS];
+int leftShift = 0;
+int ScrollStringIndex = 0;
 
 void MatrixShiftData(int *data);
 
@@ -110,8 +114,15 @@ void MatrixShiftData(int *data)
 
 void MatrixDrawString(char text[255])
 {	
-	int i;
-	for(i = 0; text[i] != '\0'; i++) //Iterate through chars from string
+	leftShift = 0;
+	ScrollStringIndex = 0;
+	
+	for(int i = 0; text[i] != '\0'; i++) //all text to upper case
+	{
+		text[i] = toupper(text[i]);
+	}
+	
+	for(int i = 0; text[i] != '\0'; i++) //Iterate through chars from string
 	{
 		char letter = text[i];
 		
@@ -121,35 +132,27 @@ void MatrixDrawString(char text[255])
 	MatrixDrawField(TextToWrite[0]);
 }
 
-int leftShift = 0;
-int rightShift = 8;
-int index = 0;
-
 void MatrixScrollString(void)
 {	
-	for (int y = 0; y < HT16K33_MAX_ROWS; y++)
+	for (int y = 0; y < HT16K33_MAX_ROWS; y++) //Init field to draw
 	{
 		char row = 0x00;
 		
-		row = row | TextToWrite[index][y] << leftShift;
-		if(index+1 < 255)
-		{
-			row = row | TextToWrite[index+1][y] >> rightShift;
-		}
+		row |= TextToWrite[ScrollStringIndex][y] << leftShift;
+		
+		if(ScrollStringIndex+1 < TEXT_TO_WRITE_MAX_SIZE) 
+			row |= TextToWrite[ScrollStringIndex+1][y] >> (HT16K33_MAX_ROWS - leftShift);
 		
 		char finalrow = row & 0xff;
 		FieldToDraw[y] = finalrow;
 	}
-	MatrixDrawField(FieldToDraw);
+	MatrixDrawField(FieldToDraw); //Draws field
 	
-	if(leftShift >= 8)
+	if(leftShift >= 8) //Changes when another letter is coming up
 	{
 		leftShift = 0;
-		rightShift = 8;
-		
-		index++;
+		ScrollStringIndex++;
 	}
 	
 	leftShift++;
-	rightShift--;
 }
