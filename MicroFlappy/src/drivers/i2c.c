@@ -34,7 +34,7 @@ void I2CStop(void)
 
 void I2CSelect(uint8_t addr, I2C_SEL_MODE mode){
 	
-	TWDR = addr | (mode);
+	TWDR = (addr & 0xFE) | (mode);
 	TWCR = (1 <<TWINT ) | (1 <<TWEN);
 	I2CWait();
 }

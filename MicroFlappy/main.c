@@ -9,10 +9,14 @@
 
 #include <stdio.h>
 #include <avr/io.h>
+#include <avr/delay.h>
+
 #include "drivers/rtc.h"
 #include "drivers/lcd.h"
+#include "drivers/ledmatrix.h"
 #include "drivers/buzzer.h"
 #include "includes/drivers/ultrasone.h"
+#include "drivers/ledmatrix.h"
 
 #include "logic/time.h"
 #include "logic/delay.h"
@@ -20,6 +24,7 @@
 
 int main(void)
 {
+	I2CInit();
 	TimeInit();
 	RtcInit();
 	//LcdInit();
@@ -27,8 +32,8 @@ int main(void)
 	SoundInit();
 	Ultrasonicinit();
 	
-	
-	Trigger();
+	MatrixClear();
+	LcdInit();
 	SoundTune song[10];
 	uint16_t i;
 	for(i = 0; i < 10; i++) //create default song
@@ -36,15 +41,17 @@ int main(void)
 		song[i] = (SoundTune) {.duration_us = 1000000, .freq_Hz = 250 * (i+1)};
 	}
 	
-	SoundSetUpdateMusic((SoundMusic) {.tunes = song, .tunesAmount = 10});
+	//SoundSetUpdateMusic((SoundMusic) {.tunes = song, .tunesAmount = 10});
 	
 	
-    while (1) 
+    while (1)
     {
-		TimeUpdate();
-		LcdSetCursor(0);
+		MatrixFill();
+		Delay_ms(1000);
+		MatrixClear();
+		Delay_ms(1000);
 		
-		SoundUpdate();
+		//SoundUpdate();
     }
 }
 
