@@ -26,6 +26,7 @@
 int main(void)
 {	
 	I2CInit();
+	RtcInit();
 	
 	//SoundInit();
 	UltrasoneInit();
@@ -48,12 +49,17 @@ int main(void)
 	
     while (1)
     {
-		UltrasoneUpdate();
-		
 		char *text = "               ";
-		sprintf(text, "%ld mm", UltrasoneGetDistance());
-		LcdClear();
+		rtc_t datetime = TimeGetDateTime();
+		UltrasoneUpdate();
+		TimeUpdate();
+		
 		LcdSetCursor(0);
+		sprintf(text, "    %02x:%02x:%02x", datetime.hour, datetime.min, datetime.sec );
+		LcdDisplayText(text);
+		
+		LcdSetCursor(16);
+		sprintf(text, "   speed: %-5ld", UltrasoneGetDistance());
 		LcdDisplayText(text);
 		
 		_delay_ms(200);
