@@ -9,9 +9,29 @@
 #define EASYBUZZ_H_
 
 
+/**
+ * \brief - initialize the buzzer
+ * 
+ * 
+ * \return void
+ */
 void BuzzerInit();
 
+/**
+ * \brief - Sets the sound with PWM to a certain frequency
+ * 
+ * \param frequency - the desired frequency
+ * 
+ * \return void
+ */
 void BuzzerSetFrequency(int frequency);
+
+/**
+ * \brief - To turn the sound off
+ * 
+ * 
+ * \return void
+ */
 void BuzzerPwmOff();
 
 #endif /* EASYBUZZ_H_ */

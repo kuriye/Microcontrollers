@@ -139,9 +139,6 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="includes\drivers\glcd.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="includes\drivers\gpio.h">
       <SubType>compile</SubType>
     </Compile>
@@ -173,9 +170,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\drivers\glcd.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\gpio.c">
