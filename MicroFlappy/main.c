@@ -12,6 +12,7 @@
 #include "drivers/rtc.h"
 #include "drivers/lcd.h"
 #include "drivers/buzzer.h"
+#include "includes/drivers/ultrasone.h"
 
 #include "logic/time.h"
 #include "logic/delay.h"
@@ -21,10 +22,13 @@ int main(void)
 {
 	TimeInit();
 	RtcInit();
-	LcdInit();
+	//LcdInit();
 	matrix_init();
 	SoundInit();
+	Ultrasonicinit();
 	
+	
+	Trigger();
 	SoundTune song[10];
 	uint16_t i;
 	for(i = 0; i < 10; i++) //create default song
