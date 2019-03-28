@@ -29,7 +29,7 @@ int main(void)
 	MatrixCharactersInit();
 	I2CInit();
 	RtcInit();
-	
+	BuzzerInit();
 	//SoundInit();
 	UltrasoneInit();
 	
@@ -38,6 +38,7 @@ int main(void)
 	
 	LcdClear();
 	MatrixClear();
+	
 	
 	SoundTune song[10];
 	uint16_t i;
@@ -67,7 +68,9 @@ int main(void)
 		sprintf(text, "   speed: %-5ld", UltrasoneGetDistance());
 		LcdDisplayText(text);
 		
-		_delay_ms(200);
+		BuzzerSetFrequency(1000 - UltrasoneGetDistance());
+		
+		_delay_ms(50);
 		MatrixScrollField();
 		
 		

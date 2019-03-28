@@ -5,25 +5,13 @@
  *  Author: Carlos Cadel
  */ 
 
-#ifndef BUZZER_H_
-#define BUZZER_H_
+#ifndef EASYBUZZ_H_
+#define EASYBUZZ_H_
 
-/**
- * \brief - BuzzerInit initializes the Buzzer on PORTB
- * 
- * \param void
- * 
- * \return void
- */
-void BuzzerInit(void);
 
-/**
- * \brief - BuzzerBeep lets the buzzer make a single beep
- * 
- * \param void
- * 
- * \return void
- */
-void BuzzerBeep(void);
+void BuzzerInit();
 
-#endif /* BUZZER_H_ */
+void BuzzerSetFrequency(int frequency);
+void BuzzerPwmOff();
+
+#endif /* EASYBUZZ_H_ */
