@@ -117,8 +117,12 @@ void MatrixDrawString(char text[255])
 	leftShift = 0;
 	ScrollStringIndex = 0;
 	
-	int i;
-	for(i = 0; text[i] != '\0'; i++) //Iterate through chars from string
+	for(int i = 0; text[i] != '\0'; i++) //all text to upper case
+	{
+		text[i] = toupper(text[i]);
+	}
+	
+	for(int i = 0; text[i] != '\0'; i++) //Iterate through chars from string
 	{
 		char letter = text[i];
 		

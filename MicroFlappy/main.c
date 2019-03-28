@@ -21,7 +21,6 @@
 
 #include "logic/time.h"
 #include "logic/delay.h"
-#include "logic/sound.h"
 #include "logic/matrixCharacters.h"
 
 int main(void)
@@ -30,7 +29,6 @@ int main(void)
 	I2CInit();
 	RtcInit();
 	BuzzerInit();
-	//SoundInit();
 	UltrasoneInit();
 	
 	LcdInit();
@@ -38,17 +36,6 @@ int main(void)
 	
 	LcdClear();
 	MatrixClear();
-	
-	
-	SoundTune song[10];
-	uint16_t i;
-	for(i = 0; i < 10; i++) //create default song
-	{
-		//song[i] = (SoundTune) {.duration_us = 1000000, .freq_Hz = 250 * (i+1)};
-	}
-	
-	//SoundSetUpdateMusic((SoundMusic) {.tunes = song, .tunesAmount = 10});
-	
 	
 	MatrixDrawString("ABABAB");
 	
