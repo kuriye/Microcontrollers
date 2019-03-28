@@ -25,11 +25,10 @@
 
 #define TEXT_TO_WRITE_MAX_SIZE	255
 
-char CurrentField[HT16K33_MAX_ROWS];
 char TextToWrite[TEXT_TO_WRITE_MAX_SIZE][HT16K33_MAX_ROWS];
 char FieldToDraw[HT16K33_MAX_ROWS];
-int leftShift = 0;
-int ScrollStringIndex = 0;
+uint8_t leftShift = 0;
+uint8_t ScrollStringIndex = 0;
 
 void MatrixShiftData(int *data);
 
@@ -75,22 +74,10 @@ void MatrixFill()
 
 void MatrixDrawField(char data[HT16K33_MAX_ROWS])
 {
-	memcpy(CurrentField, data, sizeof(CurrentField));
-	
 	for (int y = 0; y < HT16K33_MAX_ROWS; y++)
 	{
 		MatrixDrawRow(HT16K33_MAX_ROWS-1-y, data[y]);
 	}
-}
-
-void MatrixScrollField(void)
-{
-	for (int y = 0; y < HT16K33_MAX_ROWS; y++)
-	{
-		CurrentField[y] = CurrentField[y] >> 1;
-	}	
-
-	MatrixDrawField(CurrentField);
 }
 
 void MatrixDrawRow(int row, int data)

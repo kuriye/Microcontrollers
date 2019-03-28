@@ -58,8 +58,7 @@ int main(void)
 		BuzzerSetFrequency(1000 - UltrasoneGetDistance());
 		
 		_delay_ms(50);
-		MatrixScrollField();
-		
+		MatrixScrollString();
 		//SoundUpdate();
     }
 }
