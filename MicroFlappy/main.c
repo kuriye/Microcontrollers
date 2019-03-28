@@ -22,9 +22,11 @@
 #include "logic/time.h"
 #include "logic/delay.h"
 #include "logic/sound.h"
+#include "logic/matrixCharacters.h"
 
 int main(void)
-{	
+{
+	MatrixCharactersInit();
 	I2CInit();
 	RtcInit();
 	
@@ -47,6 +49,9 @@ int main(void)
 	//SoundSetUpdateMusic((SoundMusic) {.tunes = song, .tunesAmount = 10});
 	
 	
+	MatrixDrawString("AB");
+	
+	
     while (1)
     {
 		char *text = "               ";
@@ -63,6 +68,8 @@ int main(void)
 		LcdDisplayText(text);
 		
 		_delay_ms(200);
+		MatrixScrollField();
+		
 		
 		//SoundUpdate();
     }

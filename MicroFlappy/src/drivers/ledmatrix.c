@@ -8,6 +8,8 @@
 
 #include "drivers/ledmatrix.h"
 #include "drivers/i2c.h"
+#include "logic/matrixCharacters.h"
+#include <string.h>
 
 #define HT16K33_ADDR			0xE0
 #define HT16K33_CMD_ON			0x21
@@ -21,6 +23,8 @@
 
 #define D0_I2C_ADDR	((0x70 + 0) << 1)
 
+char CurrentField[HT16K33_MAX_ROWS];
+char TextToWrite[255][HT16K33_MAX_ROWS];
 
 void MatrixShiftData(int *data);
 
@@ -66,10 +70,22 @@ void MatrixFill()
 
 void MatrixDrawField(char data[HT16K33_MAX_ROWS])
 {
+	memcpy(CurrentField, data, sizeof(CurrentField));
+	
 	for (int y = 0; y < HT16K33_MAX_ROWS; y++)
 	{
 		MatrixDrawRow(y, data[y]);
 	}
+}
+
+void MatrixScrollField(void)
+{
+	for (int y = 0; y < HT16K33_MAX_ROWS; y++)
+	{
+		CurrentField[y] = CurrentField[y] >> 1;
+	}	
+
+	MatrixDrawField(CurrentField);
 }
 
 void MatrixDrawRow(int row, int data)
@@ -89,4 +105,17 @@ void MatrixShiftData(int *data)
 		*data = (*data - 1) / 2 + (1 << 7);
 	else			// If bit 1 is not set, just shift everything to the right
 		*data /= 2;
+}
+
+void MatrixDrawString(char text[255])
+{	
+	int i;
+	for(i = 0; text[i] != '\0'; i++) //Iterate through chars from string
+	{
+		char letter = text[i];
+		
+		memcpy(TextToWrite[i], MatrixCharactersGet(letter), sizeof(TextToWrite[i]));
+	}
+	
+	MatrixDrawField(TextToWrite[0]);
 }
