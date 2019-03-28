@@ -67,9 +67,8 @@ int main(void)
 		sprintf(text, "   speed: %-5ld", UltrasoneGetDistance());
 		LcdDisplayText(text);
 		
-		_delay_ms(200);
-		MatrixScrollField();
-		
+		_delay_ms(1000);
+		MatrixScrollString();
 		
 		//SoundUpdate();
     }
