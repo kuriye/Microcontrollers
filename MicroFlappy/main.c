@@ -9,8 +9,11 @@
 
 #include <stdio.h>
 #include <avr/io.h>
+#include <avr/delay.h>
+
 #include "drivers/rtc.h"
 #include "drivers/lcd.h"
+#include "drivers/ledmatrix.h"
 #include "drivers/buzzer.h"
 #include "drivers/ledmatrix.h"
 
