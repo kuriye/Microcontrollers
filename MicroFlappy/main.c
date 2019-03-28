@@ -50,7 +50,7 @@ int main(void)
 	//SoundSetUpdateMusic((SoundMusic) {.tunes = song, .tunesAmount = 10});
 	
 	
-	MatrixDrawString("AB");
+	MatrixDrawString("ABABAB");
 	
 	
     while (1)
@@ -72,7 +72,6 @@ int main(void)
 		
 		_delay_ms(50);
 		MatrixScrollField();
-		
 		
 		//SoundUpdate();
     }

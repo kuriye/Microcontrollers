@@ -25,6 +25,7 @@
 
 char CurrentField[HT16K33_MAX_ROWS];
 char TextToWrite[255][HT16K33_MAX_ROWS];
+char FieldToDraw[HT16K33_MAX_ROWS];
 
 void MatrixShiftData(int *data);
 
@@ -74,7 +75,7 @@ void MatrixDrawField(char data[HT16K33_MAX_ROWS])
 	
 	for (int y = 0; y < HT16K33_MAX_ROWS; y++)
 	{
-		MatrixDrawRow(y, data[y]);
+		MatrixDrawRow(HT16K33_MAX_ROWS-1-y, data[y]);
 	}
 }
 
@@ -118,4 +119,37 @@ void MatrixDrawString(char text[255])
 	}
 	
 	MatrixDrawField(TextToWrite[0]);
+}
+
+int leftShift = 0;
+int rightShift = 8;
+int index = 0;
+
+void MatrixScrollString(void)
+{	
+	for (int y = 0; y < HT16K33_MAX_ROWS; y++)
+	{
+		char row = 0x00;
+		
+		row = row | TextToWrite[index][y] << leftShift;
+		if(index+1 < 255)
+		{
+			row = row | TextToWrite[index+1][y] >> rightShift;
+		}
+		
+		char finalrow = row & 0xff;
+		FieldToDraw[y] = finalrow;
+	}
+	MatrixDrawField(FieldToDraw);
+	
+	if(leftShift >= 8)
+	{
+		leftShift = 0;
+		rightShift = 8;
+		
+		index++;
+	}
+	
+	leftShift++;
+	rightShift--;
 }
