@@ -14,7 +14,6 @@ void MatrixClear(void);
 void MatrixFill(void);
 void MatrixDrawField(char data[HT16K33_MAX_ROWS]);
 void MatrixDrawRow(int row, int data);
-void MatrixScrollField(void);
 void MatrixDrawString(char* text);
 void MatrixScrollString(void);
 
