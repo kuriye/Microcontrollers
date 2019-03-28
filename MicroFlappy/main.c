@@ -10,48 +10,30 @@
 #include <stdio.h>
 #include <avr/io.h>
 #include <util/delay.h>
-#include <avr/interrupt.h>
 
 #include "drivers/rtc.h"
 #include "drivers/lcd.h"
 #include "drivers/ledmatrix.h"
 #include "drivers/buzzer.h"
-#include "includes/drivers/ultrasone.h"
+#include "drivers/ultrasone.h"
 #include "drivers/ledmatrix.h"
+#include "drivers/i2c.h"
 
 #include "logic/time.h"
 #include "logic/delay.h"
 #include "logic/sound.h"
 
-#define TRIGGER_PIN (1 << 0)
-#define ECHO_PIN (1 << 4)
-
-int overflow = 0;
-
-ISR(TIMER3_OVF_vect)
-{
-	overflow++;
-}
-
 int main(void)
 {	
-	DDRE = 0x01;
-	PORTE = 0xFF;
-	
-	//DDRA = 0x01;		/* Make trigger pin as output */
-	//PORTD = 0xFF;
-	
-	sei();					/* Enable global interrupt */
-	ETIMSK = (1 << TOIE3);	/* Enable Timer3 overflow interrupts */
-	TCCR3A = 0;				/* Set all bit to zero Normal operation */
-	
-	
 	I2CInit();
 	
 	//SoundInit();
+	UltrasoneInit();
 	
-	//LcdInit();
+	LcdInit();
 	MatrixInit();
+	
+	LcdClear();
 	MatrixClear();
 	
 	SoundTune song[10];
@@ -66,34 +48,15 @@ int main(void)
 	
     while (1)
     {
-		MatrixClear();
-		PORTE |= TRIGGER_PIN;
-		_delay_us(10);
-		PORTE &= ~TRIGGER_PIN;
+		UltrasoneUpdate();
 		
-		/* Clear Timer Counter, 
-		start timer on rising edge with no prescaler, 
-		clear input capture flag and 
-		clear overflow flag. */
-		TCNT3 = 0; 
-		TCCR3B |= ((1 << ICES3) | (1 << CS30)); 
-		ETIFR = 1 << ICF3; 
-		//ETIFR = 1 << TOV3;
-	
-		/* Wait for rising edge */
-		while((ETIFR & (1 << ICF3)) == 0);
-		TCNT3 = 0;
-		TCCR3B = (1 << CS30);
-		ETIFR = 1 << ICF3;
-		//ETIFR = 1 << TOV3;
-		overflow = 0;
+		char *text = "               ";
+		sprintf(text, "%ld mm", UltrasoneGetDistance());
+		LcdClear();
+		LcdSetCursor(0);
+		LcdDisplayText(text);
 		
-		MatrixFill();
-		//_delay_ms(2000);
-		//MatrixFill();
-		//Delay_ms(1000);
-		//MatrixClear();
-		//Delay_ms(1000);
+		_delay_ms(200);
 		
 		//SoundUpdate();
     }

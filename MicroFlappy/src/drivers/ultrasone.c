@@ -4,35 +4,75 @@
  * Created: 27/03/2019 15:17:28
  *  Author: Bou's Laptop
  */ 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include "logic/delay.h"
-#include "drivers/gpio.h"
-#include "drivers/lcd.h"
+#define F_CPU 8000000L
 
-ISR( INT0_vect )
+#include <avr/io.h>
+#include <util/delay.h>
+#include <avr/interrupt.h>
+
+#include "drivers/ultrasone.h"
+
+#define TRIGGER_PIN (1 << 0)
+
+uint32_t overflow = 0;
+uint32_t distance = 0;
+
+ISR(TIMER3_OVF_vect)
 {
-	
+	overflow++;
 }
 
-void Ultrasonicinit() 
+void UltrasoneInit() 
 {
-	DDRE = 0xFF;	//0:OUTPUT 1-7:INPUT
+	DDRE = 0x01;
+	PORTE = 0xFF;
 	
-	EICRB |= 0x0B;
-	EIMSK |= 0x03;
+	ETIMSK = (1 << TOIE3);	/* Enable Timer3 overflow interrupts */
+	TCCR3A = 0;				/* Set all bit to zero Normal operation */
 	
 	sei();
 }
 
-void Trigger() 
+void UltrasoneTrigger()
 {
-	BitSet(PORTE, 0);
-	UpdateBit(PORTE ,0, LOW);
-	Delay_us(2);
-	UpdateBit(PORTE ,0, HIGH);
-	Delay_ms(10000);
-	UpdateBit(PORTE ,0, LOW);
+	PORTE |= TRIGGER_PIN;
+	_delay_us(10);
+	PORTE &= ~TRIGGER_PIN;
+}
+
+uint32_t UltrasoneGetDistance()
+{
+	return distance;
+}
+
+void UltrasoneUpdate()
+{
+	uint32_t count;
+	
+	UltrasoneTrigger();
+		
+	/* Clear Timer Counter, 
+	start timer on rising edge with no prescaler, 
+	clear input capture flag and 
+	clear overflow flag. */
+	TCNT3 = 0; 
+	TCCR3B |= ((1 << ICES3) | (1 << CS30)); 
+	ETIFR = 1 << ICF3; 
+	//ETIFR = 1 << TOV3;
+	
+	/* Wait for rising edge */
+	while((ETIFR & (1 << ICF3)) == 0);
+	TCNT3 = 0;
+	TCCR3B = (1 << CS30);
+	ETIFR = 1 << ICF3;
+	//ETIFR = 1 << TOV3;
+	overflow = 0;
+		
+	/* Wait for falling edge */
+	while((ETIFR & (1 << ICF3)) == 0);
+	
+	count = ICR3 + (65535 * (int)overflow);
+	distance = count / 58;
 }
 
 

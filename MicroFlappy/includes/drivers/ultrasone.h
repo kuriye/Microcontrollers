@@ -9,11 +9,28 @@
 #ifndef ULTRASONE_H_
 #define ULTRASONE_H_
 
-#define  Distance(time)			(time/58)
+/**
+ * \brief - Initializes the Ultrasonic module
+ *
+ * \return void
+ */
+void UltrasoneInit(void);
 
-void Ultrasonicinit();
-void Trigger();
-void Echo();
+
+/**
+ * \brief - Updates the Ultrasonic hardware
+ *
+ * \return void
+ */
+void UltrasoneUpdate(void);
+
+
+/**
+ * \brief  - Gets the last calculated distance
+ * 
+ * \return uint32_t - The distance in mm
+ */
+uint32_t UltrasoneGetDistance(void);
 
 
 #endif /* ULTRASONE_H_ */
