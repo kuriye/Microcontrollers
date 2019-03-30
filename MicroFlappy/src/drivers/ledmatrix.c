@@ -10,6 +10,7 @@
 #include "drivers/i2c.h"
 #include "logic/matrixCharacters.h"
 #include <string.h>
+#include <ctype.h>
 
 #define HT16K33_ADDR			0xE0
 #define HT16K33_CMD_ON			0x21
@@ -102,7 +103,7 @@ void MatrixShiftData(int *data)
 		*data /= 2;
 }
 
-void MatrixDrawString(char text[255])
+void MatrixDrawString(char text[TEXT_TO_WRITE_MAX_SIZE])
 {	
 	leftShift = 0;
 	ScrollStringIndex = 0;
@@ -134,12 +135,12 @@ void MatrixScrollString(void)
 		if(ScrollStringIndex+1 < TEXT_TO_WRITE_MAX_SIZE) 
 			row |= TextToWrite[ScrollStringIndex+1][y] >> (HT16K33_MAX_ROWS - leftShift);
 		
-		char finalrow = row & 0xff;
-		FieldToDraw[y] = finalrow;
+		row &= 0xff; //only select the first 8 bits
+		FieldToDraw[y] = row;
 	}
 	MatrixDrawField(FieldToDraw); //Draws field
 	
-	if(leftShift >= 8) //Changes when another letter is coming up
+	if(leftShift >= HT16K33_MAX_ROWS) //Changes when another letter is coming up
 	{
 		leftShift = 0;
 		ScrollStringIndex++;
