@@ -34,7 +34,7 @@ void MatrixClear(void);
 void MatrixFill(void);
 
 /**
- * \brief - draws an entiire field of data
+ * \brief - draws an entire field of data
  * 
  * \param data - the field it needs to draw
  * 
@@ -45,7 +45,7 @@ void MatrixDrawField(char data[HT16K33_MAX_ROWS]);
 /**
  * \brief - draws a row of data on the screen
  * 
- * \param row - the row it needs to draw
+ * \param row - the row it needs to draw at
  * \param data - the data for the row to draw on
  * 
  * \return void

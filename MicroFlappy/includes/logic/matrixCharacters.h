@@ -17,7 +17,23 @@ typedef struct MatrixCharachter {
 	char data[MATRIX_CHARACTER_LENGTH];
 }MatrixCharachter;
 
+/**
+ * \brief Initializes MatrixCharacters, creates data for each letter so it can be printed on the Led Matrix
+ * 
+ * \param void
+ * 
+ * \return void
+ */
 void MatrixCharactersInit(void);
+
+
+/**
+ * \brief Gets the data for on the Led Matrix for a specific letter
+ * 
+ * \param letter - the letter you want the data from
+ * 
+ * \return char* - data for displaying in the Led Matrix
+ */
 char* MatrixCharactersGet(char letter);
 
 #endif /*MATRIX_CHARACTERS_H_*/
