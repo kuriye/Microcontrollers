@@ -166,6 +166,9 @@
     <Compile Include="includes\logic\matrixCharacters.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="includes\logic\scroller.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="includes\logic\time.h">
       <SubType>compile</SubType>
     </Compile>
@@ -197,6 +200,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\logic\matrixCharacters.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\logic\scroller.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\logic\time.c">

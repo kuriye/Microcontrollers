@@ -18,6 +18,16 @@ void UltrasoneInit(void);
 
 
 /**
+ * \brief - Sets the update speed for the Ultrasonic module
+ * 
+ * \param speed - The speed in ms
+ * 
+ * \return void
+ */
+void UltrasoneSetSpeed(uint8_t speed);
+
+
+/**
  * \brief - Updates the Ultrasonic hardware
  *
  * \return void

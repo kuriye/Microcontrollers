@@ -8,56 +8,54 @@
 #define F_CPU 8000000L
 
 #include <stdio.h>
-#include <avr/io.h>
 #include <util/delay.h>
 
+#include "drivers/i2c.h"
 #include "drivers/rtc.h"
 #include "drivers/lcd.h"
-#include "drivers/ledmatrix.h"
 #include "drivers/buzzer.h"
 #include "drivers/ultrasone.h"
-#include "drivers/ledmatrix.h"
-#include "drivers/i2c.h"
 
-#include "logic/time.h"
+#include "logic/scroller.h"
+
+char text[16];
 
 int main(void)
-{
-	I2CInit();
+{	
+	LcdInit();
 	
-	TimeInit();
+	I2CInit();
+	RtcInit();
+	
 	BuzzerInit();
 	UltrasoneInit();
+	UltrasoneSetSpeed(50);
 	
-	LcdInit();
-	MatrixInit();
-	
+	ScrollerInit();
+	ScrollerSetSpeed(40);
+	ScrollerSetText("Nerds are the new cool");
 	LcdClear();
-	MatrixClear();
-	
-	MatrixDrawString("Nerds are the new cool");
-	
 	
     while (1)
     {
-		char *text = "               ";
-		rtc_t datetime = TimeGetDateTime();
+		rtc_t datetime;
+		RtcGetDateTime(&datetime);
+		
 		UltrasoneUpdate();
-		TimeUpdate();
-		
-		LcdSetCursor(0);
-		sprintf(text, "    %02x:%02x:%02x", datetime.hour, datetime.min, datetime.sec );
-		LcdDisplayText(text);
-		
-		LcdSetCursor(16);
-		sprintf(text, "   speed: %-5ld", UltrasoneGetDistance());
-		LcdDisplayText(text);
-		
 		BuzzerSetFrequency(1000 - UltrasoneGetDistance());
 		
-		_delay_ms(10);
-		MatrixScrollString();
-		//SoundUpdate();
+		sprintf(text, "    %02x:%02x:%02x", datetime.hour, datetime.min, datetime.sec );
+		LcdSetCursor(0);
+		LcdDisplayText(text);
+		
+		sprintf(text, "   speed: %-5ld", UltrasoneGetDistance());
+		LcdSetCursor(16);
+		LcdDisplayText(text);
+		
+		ScrollerSetSpeed((UltrasoneGetDistance() - 10)/ 50);
+		ScrollerUpdate();
+		
+		_delay_ms(20);
     }
 }
 

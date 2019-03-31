@@ -52,30 +52,5 @@ void MatrixDrawField(char data[HT16K33_MAX_ROWS]);
  */
 void MatrixDrawRow(int row, int data);
 
-/**
- * \brief - scrolls the field to the left
- * 
- * 
- * \return void
- */
-void MatrixScrollField(void);
-
-/**
- * \brief -  draws a string to the display
- * 
- * \param text - the string that needs to be drawn
- * 
- * \return void
- */
-void MatrixDrawString(char* text);
-
-
-/**
- * \brief - to scroll the string over the display
- * 
- * 
- * \return void
- */
-void MatrixScrollString(void);
 
 #endif /* LEDMATRIX_H_ */
