@@ -29,7 +29,6 @@ int main(void)
 	
 	BuzzerInit();
 	UltrasoneInit();
-	UltrasoneSetSpeed(50);
 	
 	ScrollerInit();
 	ScrollerSetSpeed(40);

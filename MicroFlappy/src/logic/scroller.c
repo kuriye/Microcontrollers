@@ -80,7 +80,7 @@ void ScrollerUpdate()
 	
 		MatrixDrawField(FieldToDraw); //Draws field
 	
-		if(leftShift >= 8) //Changes when another letter is coming up
+		if(leftShift >= HT16K33_MAX_ROWS) //Changes when another letter is coming up
 		{
 			leftShift = 0;
 			ScrollStringIndex++;

@@ -139,9 +139,6 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="includes\drivers\gpio.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="includes\drivers\i2c.h">
       <SubType>compile</SubType>
     </Compile>
@@ -160,9 +157,6 @@
     <Compile Include="includes\drivers\ultrasone.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="includes\logic\delay.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="includes\logic\matrixCharacters.h">
       <SubType>compile</SubType>
     </Compile>
@@ -173,9 +167,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\drivers\gpio.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\i2c.c">
@@ -194,9 +185,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\drivers\ultrasone.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\logic\delay.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\logic\matrixCharacters.c">

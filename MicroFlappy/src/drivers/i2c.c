@@ -8,7 +8,6 @@
 #include <stdint.h>
 
 #include "drivers/i2c.h"
-#include "logic/delay.h"
 
 void I2CInit()
 {
