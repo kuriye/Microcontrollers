@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>7.0</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
-    <ProjectGuid>dce6c7e3-ee26-4d79-826b-08594b9ad897</ProjectGuid>
+    <ProjectGuid>{c69d7fba-b77a-4e60-b691-595b508a2d6f}</ProjectGuid>
     <avrdevice>ATmega128A</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>Practicum 1 Deel A</AssemblyName>
-    <Name>Practicum 1 Deel B</Name>
-    <RootNamespace>Practicum 1 Deel A</RootNamespace>
+    <AssemblyName>MicroFlappy</AssemblyName>
+    <Name>MicroFlappy</Name>
+    <RootNamespace>MicroFlappy</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
@@ -40,34 +40,22 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
-    <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
-    <avrtoolserialnumber />
+    <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
+    <avrtoolserialnumber>J41800084091</avrtoolserialnumber>
     <avrdeviceexpectedsignature>0x1E9702</avrdeviceexpectedsignature>
-    <com_atmel_avrdbg_tool_simulator>
+    <com_atmel_avrdbg_tool_atmelice>
       <ToolOptions>
         <InterfaceProperties>
+          <JtagDbgClock>2000000</JtagDbgClock>
         </InterfaceProperties>
-        <InterfaceName>
-        </InterfaceName>
+        <InterfaceName>JTAG</InterfaceName>
       </ToolOptions>
-      <ToolType>com.atmel.avrdbg.tool.simulator</ToolType>
-      <ToolNumber>
-      </ToolNumber>
-      <ToolName>Simulator</ToolName>
-    </com_atmel_avrdbg_tool_simulator>
-    <avrtoolinterface />
-    <custom>
-      <ToolOptions xmlns="">
-        <InterfaceProperties>
-        </InterfaceProperties>
-        <InterfaceName>
-        </InterfaceName>
-      </ToolOptions>
-      <ToolType xmlns="">custom</ToolType>
-      <ToolNumber xmlns="">
-      </ToolNumber>
-      <ToolName xmlns="">Custom Programming Tool</ToolName>
-    </custom>
+      <ToolType>com.atmel.avrdbg.tool.atmelice</ToolType>
+      <ToolNumber>J41800084091</ToolNumber>
+      <ToolName>Atmel-ICE</ToolName>
+    </com_atmel_avrdbg_tool_atmelice>
+    <avrtoolinterface>JTAG</avrtoolinterface>
+    <avrtoolinterfaceclock>2000000</avrtoolinterfaceclock>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -128,6 +116,7 @@
         <avrgcc.compiler.directories.IncludePaths>
           <ListValues>
             <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.2.209\include</Value>
+            <Value>../includes</Value>
           </ListValues>
         </avrgcc.compiler.directories.IncludePaths>
         <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -148,21 +137,75 @@
         <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
       </AvrGcc>
     </ToolchainSettings>
-    <PostBuildEvent>"$(LOCALAPPDATA)"\..\Roaming\Mikroelektronika\AVRFLASH\AVRFlash.exe -w -pATmega128 -q -f"$(OutputDirectory)\$(OutputFileName).hex"</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="includes\drivers\i2c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="includes\drivers\lcd.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="includes\drivers\ledmatrix.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="includes\drivers\rtc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="includes\drivers\buzzer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="includes\drivers\ultrasone.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="includes\logic\matrixCharacters.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="includes\logic\scroller.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="includes\logic\time.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="pattern.h">
+    <Compile Include="src\drivers\i2c.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="smartcontrol.c">
+    <Compile Include="src\drivers\lcd.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="smartcontrol.h">
+    <Compile Include="src\drivers\ledmatrix.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\drivers\rtc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\buzzer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\drivers\ultrasone.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\logic\matrixCharacters.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\logic\scroller.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\logic\time.c">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="includes" />
+    <Folder Include="includes\drivers" />
+    <Folder Include="includes\logic" />
+    <Folder Include="includes\presentation" />
+    <Folder Include="src" />
+    <Folder Include="src\drivers\" />
+    <Folder Include="src\logic\" />
+    <Folder Include="src\presentation\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
