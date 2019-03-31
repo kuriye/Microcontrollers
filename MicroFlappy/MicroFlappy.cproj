@@ -163,9 +163,6 @@
     <Compile Include="includes\logic\scroller.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="includes\logic\time.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -193,19 +190,14 @@
     <Compile Include="src\logic\scroller.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\logic\time.c">
-      <SubType>compile</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="includes" />
     <Folder Include="includes\drivers" />
     <Folder Include="includes\logic" />
-    <Folder Include="includes\presentation" />
     <Folder Include="src" />
     <Folder Include="src\drivers\" />
     <Folder Include="src\logic\" />
-    <Folder Include="src\presentation\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
