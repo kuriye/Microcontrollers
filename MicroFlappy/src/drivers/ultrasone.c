@@ -18,7 +18,7 @@ uint32_t distance = 0;
 
 ISR(INT4_vect)
 {
-	// Rising edge: Enable timer3, we where listening for Rising Edge
+	// Rising edge: Enable timer3, we were listening for Rising Edge
 	if(EICRB & (1 << ISC40))
 	{
 		//EIMSK = 0;

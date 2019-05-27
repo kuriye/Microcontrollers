@@ -11,13 +11,13 @@
 
 void I2CInit()
 {
-	TWSR=0x00;
-	TWBR=0x20;
+	TWSR=0x00; // prescaler
+	TWBR=0x20; // bit rate
 }
 
 void I2CStart()
 {
-	TWCR = (1<<TWINT) | (1<< TWSTA) | (1 << TWEN);
+	TWCR = (1<<TWINT) | (1<< TWSTA) | (1 << TWEN); 
 	I2CWait();
 }
 
